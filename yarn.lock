@@ -3472,6 +3472,7 @@ __metadata:
     react: 17.0.1
     react-dom: 17.0.1
     react-native: 0.64.3
+    react-native-google-places-autocomplete: ^2.4.1
     react-native-maps: 0.29.4
     react-native-safe-area-context: 3.3.2
     react-native-screens: ~3.10.1
@@ -8275,6 +8276,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"qs@npm:~6.9.1":
+  version: 6.9.7
+  resolution: "qs@npm:6.9.7"
+  checksum: 5bbd263332ccf320a1f36d04a2019a5834dc20bcb736431eaccde2a39dcba03fb26d2fd00174f5d7bc26aaad1cad86124b18440883ac042ea2a0fca6170c1bf1
+  languageName: node
+  linkType: hard
+
 "query-string@npm:^5.0.1":
   version: 5.1.1
   resolution: "query-string@npm:5.1.1"
@@ -8373,6 +8381,19 @@ __metadata:
     jscodeshift: ^0.11.0
     nullthrows: ^1.1.1
   checksum: 545d1e416be5bd0bc27a9bc4d58719317577fbcb38f80082857142f4946ba336df3f5fa3e87137709691acd809ee46e1f52834648399cb50219a70f441d6e6a3
+  languageName: node
+  linkType: hard
+
+"react-native-google-places-autocomplete@npm:^2.4.1":
+  version: 2.4.1
+  resolution: "react-native-google-places-autocomplete@npm:2.4.1"
+  dependencies:
+    lodash.debounce: ^4.0.8
+    prop-types: ^15.7.2
+    qs: ~6.9.1
+  peerDependencies:
+    react-native: ">= 0.59"
+  checksum: 704ab3917dbf43b5b0504791f80494b266aa0659a2cce8b9db7979efecb1d45d207bca800d79d429f67be3a7ef1e628e63ff198b20cf69e6684b8e74a8e0b6ca
   languageName: node
   linkType: hard
 
