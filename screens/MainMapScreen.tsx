@@ -1,4 +1,4 @@
-import { StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, ScrollView, TouchableOpacity, Pressable } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 
 import EditScreenInfo from '../components/EditScreenInfo';
@@ -6,6 +6,7 @@ import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 import React, { useState } from 'react';
 import placesData from '../assets/resources/placesSample.json';
+import PlaceDetail from './PlaceDetail';
 
 const styles = StyleSheet.create({
 	container: {
@@ -85,10 +86,14 @@ export default function MainMapScreen({ navigation }: RootTabScreenProps<'TabOne
 				</MapView>
 				{showList && (
 					<ScrollView style={styles.list}>
-						{places.map((place, index) => (
-							<Text key={index} style={styles.title}>
-								{place.name}
-							</Text>
+						{places.map((place) => (
+							<Pressable
+								onPress={() => {
+									navigation.navigate('PlaceDetail', place);
+								}}
+							>
+								<Text style={styles.title}>{place.name}</Text>
+							</Pressable>
 						))}
 					</ScrollView>
 				)}
