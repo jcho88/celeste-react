@@ -1,6 +1,5 @@
 [
     {
-        "id": 1,
         "name": "Sushi Nakazawa",
         "title": "Sushi Nakazawa",
         "latitude": 40.7318046,
@@ -10,7 +9,6 @@
         "date": "2022-03-08"
     },
     {
-        "id": 2,
         "name": "Verlaine",
         "title": "Verlaine",
         "latitude": 40.720079,
@@ -20,7 +18,6 @@
         "date": "2022-03-08"
     },
     {
-        "id": 3,
         "name": "Angel's Share",
         "title": "Angel's Share",
         "latitude": 40.7297544,

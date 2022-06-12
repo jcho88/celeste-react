@@ -3,20 +3,19 @@ import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import Constants from 'expo-constants';
 
-import EditScreenInfo from '../components/EditScreenInfo';
+// import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 import React, { useState } from 'react';
 import placesData from '../assets/resources/placesSample.json';
-import PlaceDetail from './PlaceDetail';
+// import PlaceDetail from './PlaceDetail';
 
 const GOOGLE_PLACES_API_KEY = Constants.manifest?.ios?.config?.googleMapsApiKey || '';
 
 const styles = StyleSheet.create({
 	container: {
-		// flex: 1,
+		flex: 1,
 		...StyleSheet.absoluteFillObject,
-		alignItems: 'flex-start',
 		justifyContent: 'flex-start',
 	},
 	title: {
@@ -25,8 +24,6 @@ const styles = StyleSheet.create({
 		marginHorizontal: 20,
 	},
 	separator: {
-		flexGrow: 0.3,
-		// height: 50,
 		width: '100%',
 	},
 	separatorText: {
@@ -37,21 +34,13 @@ const styles = StyleSheet.create({
 	},
 	map: {
 		...StyleSheet.absoluteFillObject,
-		marginVertical: 150,
+		marginTop: 50,
 	},
 	list: {
-		flexGrow: 0.7,
-		marginVertical: 20,
+		...StyleSheet.absoluteFillObject,
+		marginTop: 100,
 		backgroundColor: 'white',
 		width: '100%',
-	},
-	search: {
-		marginVertical: 50,
-		position: 'absolute',
-		left: 0,
-		right: 0,
-		top: 0,
-		bottom: 0,
 	},
 });
 
@@ -71,28 +60,6 @@ export default function MainMapScreen({ navigation }: RootTabScreenProps<'TabOne
 	return (
 		<>
 			<View style={styles.container}>
-				<TouchableOpacity
-					style={styles.separator}
-					// lightColor="#eee"
-					// darkColor="rgba(255,255,255,0.1)"
-					onPress={() => {
-						setShowList(!showList);
-					}}
-				>
-					<Text style={styles.separatorText}>Toggle List</Text>
-				</TouchableOpacity>
-				<View style={styles.search}>
-					<GooglePlacesAutocomplete
-						placeholder="Search"
-						query={{
-							key: GOOGLE_PLACES_API_KEY,
-							language: 'en',
-						}}
-						debounce={900}
-						onPress={(data, details = null) => console.log('SEARCH DATA: ', data)}
-						onFail={(error) => console.error('SEARCH ERROR: ', error)}
-					/>
-				</View>
 				<MapView
 					provider={PROVIDER_GOOGLE}
 					style={styles.map}
@@ -109,6 +76,16 @@ export default function MainMapScreen({ navigation }: RootTabScreenProps<'TabOne
 						/>
 					))}
 				</MapView>
+				<TouchableOpacity
+					style={styles.separator}
+					// lightColor="#eee"
+					// darkColor="rgba(255,255,255,0.1)"
+					onPress={() => {
+						setShowList(!showList);
+					}}
+				>
+					<Text style={styles.separatorText}>Toggle List</Text>
+				</TouchableOpacity>
 				{showList && (
 					<ScrollView style={styles.list}>
 						{places.map((place, index) => (
@@ -123,6 +100,34 @@ export default function MainMapScreen({ navigation }: RootTabScreenProps<'TabOne
 						))}
 					</ScrollView>
 				)}
+				<GooglePlacesAutocomplete
+					GooglePlacesDetailsQuery={{ fields: 'geometry' }}
+					fetchDetails={true} // you need this to fetch the details object onPress
+					placeholder="Search"
+					query={{
+						key: GOOGLE_PLACES_API_KEY,
+						location: `${region.latitude},${region.longitude}`,
+						radius: 11 * region.longitudeDelta,
+						language: 'en',
+					}}
+					debounce={900}
+					onPress={(data, details: any = null) => {
+						// console.log('SEARCH DATA: ', data);
+						// console.log('SEARCH DETAILS: ', details);
+						const place = {
+							name: data.structured_formatting.main_text,
+							title: data.structured_formatting.main_text,
+							latitude: details.geometry.location.lat,
+							longitude: details.geometry.location.lng,
+							description: data.description,
+							category: '',
+							date: '',
+						};
+						navigation.navigate('PlaceDetail', place);
+						// setPlaces(places)
+					}}
+					onFail={(error) => console.error('SEARCH ERROR: ', error)}
+				/>
 			</View>
 			{/* <View style={styles.container}>
         <Text style={styles.title}>Tab One</Text>

@@ -29,6 +29,9 @@ const styles = StyleSheet.create({
 
 export default function PlaceDetail({ navigation, route }: RootTabScreenProps<'TabOne'>) {
 	const place = route.params ? route.params : Place;
+
+	// console.log('PLACE DETAIL: ', place)
+	
 	return (
 		<View style={styles.container}>
 			<Text style={styles.title}>Details</Text>
