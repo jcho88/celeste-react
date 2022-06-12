@@ -21,7 +21,7 @@
     "ios": {
       "supportsTablet": true,
       "config": {
-        "googleMapsApiKey": "AIzaSyCw_IP6EC5A5eG8Nlx1PqJ_Ccz5OwuYS1I"
+        "googleMapsApiKey": "CHANGE_ME"
       }
     },
     "android": {

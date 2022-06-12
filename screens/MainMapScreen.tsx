@@ -1,5 +1,7 @@
 import { StyleSheet, ScrollView, TouchableOpacity, Pressable } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import Constants from 'expo-constants';
 
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
@@ -8,9 +10,11 @@ import React, { useState } from 'react';
 import placesData from '../assets/resources/placesSample.json';
 import PlaceDetail from './PlaceDetail';
 
+const GOOGLE_PLACES_API_KEY = Constants.manifest?.ios?.config?.googleMapsApiKey || '';
+
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
+		// flex: 1,
 		...StyleSheet.absoluteFillObject,
 		alignItems: 'flex-start',
 		justifyContent: 'flex-start',
@@ -21,7 +25,8 @@ const styles = StyleSheet.create({
 		marginHorizontal: 20,
 	},
 	separator: {
-		height: 50,
+		flexGrow: 0.3,
+		// height: 50,
 		width: '100%',
 	},
 	separatorText: {
@@ -32,13 +37,21 @@ const styles = StyleSheet.create({
 	},
 	map: {
 		...StyleSheet.absoluteFillObject,
-		marginVertical: 50,
+		marginVertical: 150,
 	},
 	list: {
+		flexGrow: 0.7,
 		marginVertical: 20,
-		flex: 1,
 		backgroundColor: 'white',
 		width: '100%',
+	},
+	search: {
+		marginVertical: 50,
+		position: 'absolute',
+		left: 0,
+		right: 0,
+		top: 0,
+		bottom: 0,
 	},
 });
 
@@ -68,6 +81,18 @@ export default function MainMapScreen({ navigation }: RootTabScreenProps<'TabOne
 				>
 					<Text style={styles.separatorText}>Toggle List</Text>
 				</TouchableOpacity>
+				<View style={styles.search}>
+					<GooglePlacesAutocomplete
+						placeholder="Search"
+						query={{
+							key: GOOGLE_PLACES_API_KEY,
+							language: 'en',
+						}}
+						debounce={900}
+						onPress={(data, details = null) => console.log('SEARCH DATA: ', data)}
+						onFail={(error) => console.error('SEARCH ERROR: ', error)}
+					/>
+				</View>
 				<MapView
 					provider={PROVIDER_GOOGLE}
 					style={styles.map}
@@ -86,8 +111,9 @@ export default function MainMapScreen({ navigation }: RootTabScreenProps<'TabOne
 				</MapView>
 				{showList && (
 					<ScrollView style={styles.list}>
-						{places.map((place) => (
+						{places.map((place, index) => (
 							<Pressable
+								key={index}
 								onPress={() => {
 									navigation.navigate('PlaceDetail', place);
 								}}
