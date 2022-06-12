@@ -3,12 +3,12 @@ import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import Constants from 'expo-constants';
 
-import EditScreenInfo from '../components/EditScreenInfo';
+// import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 import React, { useState } from 'react';
 import placesData from '../assets/resources/placesSample.json';
-import PlaceDetail from './PlaceDetail';
+// import PlaceDetail from './PlaceDetail';
 
 const GOOGLE_PLACES_API_KEY = Constants.manifest?.ios?.config?.googleMapsApiKey || '';
 
@@ -104,10 +104,25 @@ export default function MainMapScreen({ navigation }: RootTabScreenProps<'TabOne
 					placeholder="Search"
 					query={{
 						key: GOOGLE_PLACES_API_KEY,
+						location: `${region.latitude},${region.longitude}`,
+						radius: 11*region.longitudeDelta,
 						language: 'en',
 					}}
 					debounce={900}
-					onPress={(data, details = null) => console.log('SEARCH DATA: ', data)}
+					onPress={(data, details = null) => { 
+						// console.log('SEARCH DATA: ', data);
+						const place = {
+							name: data.structured_formatting.main_text,
+							title: data.structured_formatting.main_text,
+							latitude: 0,
+							longitude: 0,
+							description: data.description,
+							category: '',
+							date: ''
+						}
+						navigation.navigate('PlaceDetail', place);
+						// setPlaces(places)
+					}}
 					onFail={(error) => console.error('SEARCH ERROR: ', error)}
 				/>
 			</View>
