@@ -101,25 +101,28 @@ export default function MainMapScreen({ navigation }: RootTabScreenProps<'TabOne
 					</ScrollView>
 				)}
 				<GooglePlacesAutocomplete
+					GooglePlacesDetailsQuery={{ fields: 'geometry' }}
+					fetchDetails={true} // you need this to fetch the details object onPress
 					placeholder="Search"
 					query={{
 						key: GOOGLE_PLACES_API_KEY,
 						location: `${region.latitude},${region.longitude}`,
-						radius: 11*region.longitudeDelta,
+						radius: 11 * region.longitudeDelta,
 						language: 'en',
 					}}
 					debounce={900}
-					onPress={(data, details = null) => { 
+					onPress={(data, details: any = null) => {
 						// console.log('SEARCH DATA: ', data);
+						// console.log('SEARCH DETAILS: ', details);
 						const place = {
 							name: data.structured_formatting.main_text,
 							title: data.structured_formatting.main_text,
-							latitude: 0,
-							longitude: 0,
+							latitude: details.geometry.location.lat,
+							longitude: details.geometry.location.lng,
 							description: data.description,
 							category: '',
-							date: ''
-						}
+							date: '',
+						};
 						navigation.navigate('PlaceDetail', place);
 						// setPlaces(places)
 					}}
