@@ -2,6 +2,7 @@ import { StyleSheet, ScrollView, TouchableOpacity, Pressable } from 'react-nativ
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import Constants from 'expo-constants';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 // import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
@@ -24,10 +25,25 @@ const styles = StyleSheet.create({
 		marginHorizontal: 20,
 	},
 	separator: {
-		width: '100%',
+		alignContent: 'flex-end',
+		justifyContent: 'space-between',
+		flexDirection: 'row',
+		marginHorizontal: 10,
 	},
-	separatorText: {
-		fontSize: 20,
+	addIcon: {
+		color: 'black',
+		alignContent: 'flex-start',
+	},
+	menu: {
+		color: 'black',
+		alignContent: 'flex-end',
+	},
+	headerText: {
+		flex: 1,
+		flexGrow: 1,
+		fontSize: 18,
+		margin: 5,
+		// color: '#007AFF',
 		fontWeight: 'bold',
 		textAlign: 'center',
 		textAlignVertical: 'center',
@@ -44,7 +60,7 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default function MainMapScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
+export default function MainMapScreen({ navigation }: RootTabScreenProps<'MainMap'>) {
 	const [places, setPlaces] = useState(placesData);
 
 	const initialRegion = {
@@ -76,16 +92,25 @@ export default function MainMapScreen({ navigation }: RootTabScreenProps<'TabOne
 						/>
 					))}
 				</MapView>
-				<TouchableOpacity
-					style={styles.separator}
-					// lightColor="#eee"
-					// darkColor="rgba(255,255,255,0.1)"
-					onPress={() => {
-						setShowList(!showList);
-					}}
-				>
-					<Text style={styles.separatorText}>Toggle List</Text>
-				</TouchableOpacity>
+				<View style={styles.separator}>
+					<Ionicons
+						style={styles.addIcon}
+						name="add-circle-outline"
+						size={32}
+						onPress={() => {
+							navigation.navigate('AddNewPlace', { initialRegion: region });
+						}}
+					/>
+					<Text style={styles.headerText}>Home</Text>
+					<Ionicons
+						style={styles.menu}
+						name="menu"
+						size={32}
+						onPress={() => {
+							setShowList(!showList);
+						}}
+					/>
+				</View>
 				{showList && (
 					<ScrollView style={styles.list}>
 						{places.map((place, index) => (
@@ -101,8 +126,9 @@ export default function MainMapScreen({ navigation }: RootTabScreenProps<'TabOne
 					</ScrollView>
 				)}
 				<GooglePlacesAutocomplete
-					GooglePlacesDetailsQuery={{ fields: 'geometry' }}
+					GooglePlacesDetailsQuery={{ fields: 'name,geometry,formatted_address' }}
 					fetchDetails={true} // you need this to fetch the details object onPress
+					enablePoweredByContainer={false}
 					placeholder="Search"
 					query={{
 						key: GOOGLE_PLACES_API_KEY,
@@ -115,11 +141,11 @@ export default function MainMapScreen({ navigation }: RootTabScreenProps<'TabOne
 						// console.log('SEARCH DATA: ', data);
 						// console.log('SEARCH DETAILS: ', details);
 						const place = {
-							name: data.structured_formatting.main_text,
-							title: data.structured_formatting.main_text,
+							name: details.name,
+							address: details.formatted_address,
 							latitude: details.geometry.location.lat,
 							longitude: details.geometry.location.lng,
-							description: data.description,
+							description: '',
 							category: '',
 							date: '',
 						};

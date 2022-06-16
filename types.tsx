@@ -17,6 +17,7 @@ export type RootStackParamList = {
 	Root: NavigatorScreenParams<RootTabParamList> | undefined;
 	Modal: undefined;
 	PlaceDetail: {};
+	AddNewPlace: { initialRegion: any };
 	NotFound: undefined;
 };
 
@@ -26,7 +27,7 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> = Nati
 >;
 
 export type RootTabParamList = {
-	TabOne: undefined;
+	MainMap: undefined;
 	TabTwo: undefined;
 };
 
