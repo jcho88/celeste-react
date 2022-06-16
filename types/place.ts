@@ -1,7 +1,9 @@
 type Place = {
 	id: number;
 	name: string;
-	category: Category;
+	category?: Category;
+	latitude: number;
+	longitude: number;
 	description?: string | undefined;
 	date?: string | undefined;
 };
