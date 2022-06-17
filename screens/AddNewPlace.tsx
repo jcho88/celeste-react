@@ -70,8 +70,8 @@ export default function AddNewPlace({ navigation, route }: RootTabScreenProps<'M
 		? route.params
 		: {
 				initialRegion: {
-					latitude: 40.75251018277572,
-					longitude: -73.97984077693457,
+					latitude: 29.955105,
+					longitude: -90.067493,
 					latitudeDelta: 0.1,
 					longitudeDelta: 0.1,
 				},
@@ -92,9 +92,10 @@ export default function AddNewPlace({ navigation, route }: RootTabScreenProps<'M
 	 * API details: https://developers.google.com/maps/documentation/places/web-service/autocomplete
 	 */
 	const onChangeText = async () => {
-		console.log('TEXT CHANGED');
-		console.log(search.term);
-		console.log(search.fetchPredictions);
+		// console.log('TEXT CHANGED');
+		// console.log(search.term);
+		// console.log(search.fetchPredictions);
+		setShowPredictions(true);
 		if (search.term.trim() === '') {
 			setPredictions([]);
 			return;
@@ -103,7 +104,7 @@ export default function AddNewPlace({ navigation, route }: RootTabScreenProps<'M
 		const apiUrl = `${GOOGLE_PLACES_API_BASE_URL}/autocomplete/json`;
 		try {
 			const result = await axios.request({
-				method: 'post',
+				method: 'get',
 				url: apiUrl,
 				params: {
 					input: search.term,
@@ -126,9 +127,9 @@ export default function AddNewPlace({ navigation, route }: RootTabScreenProps<'M
 	useDebounce(onChangeText, 500, [search.term]);
 
 	const mapPredictions = async () => {
-		console.log('MAPPING PREDICTINOS');
+		// console.log('MAPPING PREDICTINOS');
 		if (predictions) {
-			console.log('FOUND PREDICTIONS TO MAP');
+			// console.log('FOUND PREDICTIONS TO MAP');
 			const newPlaces: Place[] = [];
 			let count = 0;
 			for (const pred of predictions) {
@@ -147,8 +148,9 @@ export default function AddNewPlace({ navigation, route }: RootTabScreenProps<'M
 				}
 			}
 			setPlaces(newPlaces);
+			setShowPredictions(false);
 
-			console.log('PLACES:', newPlaces);
+			// console.log('PLACES:', newPlaces);
 		}
 	};
 

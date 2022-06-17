@@ -64,8 +64,8 @@ export default function MainMapScreen({ navigation }: RootTabScreenProps<'MainMa
 	const [places, setPlaces] = useState(placesData);
 
 	const initialRegion = {
-		latitude: 40.75251018277572,
-		longitude: -73.97984077693457,
+		latitude: 29.955105,
+		longitude: -90.067493,
 		latitudeDelta: 0.1,
 		longitudeDelta: 0.1,
 	};

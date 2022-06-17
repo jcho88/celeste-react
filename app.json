@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "celeste-react",
-    "slug": "celeste-react",
-    "version": "1.0.0",
+    "name": "celeste",
+    "slug": "celeste",
+    "version": "0.0.1",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/cat.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
@@ -19,7 +19,9 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
+      "bundleIdentifier": "com.sj.celeste",
+      "buildNumber": "0.0.1",
+      "supportsTablet": false,
       "config": {
         "googleMapsApiKey": "CHANGE_ME"
       }

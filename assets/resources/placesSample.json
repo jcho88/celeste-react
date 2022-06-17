@@ -1,29 +1,20 @@
 [
     {
-        "name": "Sushi Nakazawa",
-        "title": "Sushi Nakazawa",
-        "latitude": 40.7318046,
-        "longitude": -74.00454929999999,
-        "description": "Need reservations",
-        "category": "eat",
-        "date": "2022-03-08"
+        "name": "Bourbon St",
+        "title": "Bourbon St",
+        "latitude": 29.954623,
+        "longitude": -90.069134,
+        "description": "Hurricanes!",
+        "category": "drink",
+        "date": "2022-06-17"
     },
     {
-        "name": "Verlaine",
-        "title": "Verlaine",
-        "latitude": 40.720079,
-        "longitude": -73.987785,
-        "description": "Good lychee martinis",
+        "name": "The Carousel Bar & Lounge",
+        "title": "The Carousel Bar & Lounge",
+        "latitude": 29.9543304,
+        "longitude": -90.0676679,
+        "description": "Carousel seats",
         "category": "drink",
-        "date": "2022-03-08"
-    },
-    {
-        "name": "Angel's Share",
-        "title": "Angel's Share",
-        "latitude": 40.7297544,
-        "longitude": -73.9891624,
-        "description": "Not sure",
-        "category": "drink",
-        "date": "2022-03-08"
+        "date": "2022-06-18"
     }
 ]

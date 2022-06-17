@@ -49,7 +49,6 @@ export const SearchBarWithAutocomplete: FunctionComponent<SearchBarProps> = (pro
 		  };
 
 	const onSubmitEditing = (e: NativeSyntheticEvent<TextInputSubmitEditingEventData>) => {
-		console.log('PRESSED ENTER');
 		mapPredictions(predictions);
 	};
 
